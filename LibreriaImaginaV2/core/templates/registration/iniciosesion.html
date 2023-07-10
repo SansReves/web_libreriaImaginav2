@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block titulo%}Inicio Sesión | Libreria Imagina {% endblock %}
+{%load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/css/iniciosesion.css' %}" type="text/css">
+{% endblock %}
+{% block contenido %}
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+
+      <!-- Icono -->
+      <div class="mt-4 mb-3">
+        <img src="{% static 'core/img/usuario.png ' %}" height="90" width="90" />
+      </div>
+
+      <!-- formulario login -->
+
+      <h2>Inicio de Sesión</h1>
+
+        <form method="POST" action="{% url 'iniciosesion' %}">
+          {% csrf_token%}
+          <div>
+            <input type="text" id="username" class="fadeIn second px-5 py-1 mt-4 mb-3" name="usuario_cli"
+              placeholder="Usuario" required>
+          </div>
+          <div>
+            <input type="password" id="password" class="fadeIn third px-5 py-1 mt-3 mb-3" name="contrasenia_cli"
+              placeholder="Contraseña" required>
+          </div>
+
+          <input type="submit" class="fadeIn fourth btn-info px-5 py-1 mt-3 mb-3" value="Ingresar">
+        </form>
+
+        <!-- resetear contrseña -->
+        <div id="formFooter">
+
+          <a class="" href="{% url 'registrouser' %} ">Regístrate</a> |
+          <a class="" href="#">¿Olvidó la contraseña?</a>
+
+        </div>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block JS %}
+<script src="{% static 'core/JS/jquery.validate.min.js' %}"></script>
+{% endblock %}

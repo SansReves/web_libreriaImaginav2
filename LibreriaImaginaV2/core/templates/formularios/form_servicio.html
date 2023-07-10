@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+
+{% block titulo%}Formulario Servicio | Libreria Imagina {% endblock %}
+{%load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/CSS/formservicio.css' %}" type="text/css">
+{% endblock %}
+{% block contenido %}
+<div>
+    <h1 class="titulo">Solicitud de Servicios</h1>
+</div>
+
+<!-- <div class="container"> -->
+<!-- <div  id="wrapper fadeInDown">
+    <div id="formContent">
+        {% csrf_token %}
+        
+        <form method="POST">
+
+            <div class="py-2 ">
+                <label for="cboServicio">Servicio: *</label>
+                <select id="cboServicio" name="cboServicio">
+                    <option value="0">Seleccione</option>
+                    {% for s in Servicio %}
+                    <option value="{{ s.id_serv }}">{{ s.nombre_serv }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class=" py-2 ">
+                <p>Fecha de Visita: <input type="date" id="fecha" name="fecha"></p>
+            </div>
+            <div class=" py-2 ">
+                <p>Describe por qué necesitas este servicio:</p>
+                <input type="text" id="detalle" name="detalle">
+            </div>
+
+            <div class=" py-2 ">
+                <input class="btn btn-success" type="submit" value="Siguiente">
+            </div>
+
+        </form>
+    </div>
+</div> -->
+<!-- </div> -->
+
+<div class="row" id="servicios">
+    {% load humanize %}
+    <div class="col-2"></div>
+    <div class="col-8">
+        <form method="post">
+            {% csrf_token%}
+            <div class="card">
+                <div class="card-body">
+                    <div class="py-2 ">
+                        <label for="cboServicio">Servicio: *</label>
+                        <select id="cboServicio" name="cboServicio">
+                            <option value="0">Seleccione</option>
+                            {% for s in Servicio %}
+                            <option value="{{ s.id_serv }}">{{ s.nombre_serv }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class=" py-2 ">
+                        <p>Fecha de Visita: <input type="date" id="fecha" name="fecha"></p>
+                    </div>
+                    <div class=" py-2 ">
+                        <p>Describe por qué necesitas este servicio:</p>
+                        <input type="text" id="detalle" name="detalle">
+                    </div>
+
+                    <div class=" py-2 ">
+                        <input class="btn btn-success" type="submit" value="Siguiente">
+                    </div>
+                </div>
+            </div>  
+        </form>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+{% endblock %}

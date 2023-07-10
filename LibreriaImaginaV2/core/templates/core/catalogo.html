@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block titulo%} Catálogo | Libreria Imagina {% endblock %}
+{%load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/CSS/catalogo.css' %}" type="text/css">
+{% endblock %}
+{% block contenido %}
+<div>
+    <h1 class="titulo">Catálogo de Libros</h1>
+</div>
+
+<div class="row" id="cards-libros">
+    {% load humanize %}
+    {% for l in libros %}
+    <div class="col-2">
+        <div class="card">
+            {% if l.imagen_libro %}
+            <img class="card-img-top" src="#" alt="Card image">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{l.nombre_libro}} </h5>
+                <h6> {{l.autor_libro}} </h6>
+                <p class="card-text">${{l.precio_libro | intcomma}}</p>
+                <button class="btn btn-outline-secondary" id="btn-correo" type="submit">Agregar</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

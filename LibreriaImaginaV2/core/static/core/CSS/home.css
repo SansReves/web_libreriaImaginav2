@@ -1,0 +1,46 @@
+/* ------------CARRUSEL IMAGENES------------- */
+.carousel-slide{
+    background-color:rgb(244,241,187) ;
+    margin-top: 10px auto;
+    margin-bottom: 10px auto;
+
+}
+.carousel-inner{
+    width: 400px auto;
+    height: 500px auto;
+}
+
+.carousel-inner  img{
+    width: 200px;
+    height: 500px;
+    
+}
+
+/* ----------BLOQUE CORREO---------- */
+
+.correo{
+    margin: 30px auto;
+
+    background-color: rgb(240,128,128);
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+}
+.correo .mensaje {
+padding-left: 10px;
+margin-left: 40px;
+    
+}
+.correo #input-correo{
+    padding-right: 20px;
+    margin-right: 80px ;
+    margin-left: 80px;
+}
+
+.correo #input-correo #btn-correo{
+    background-color: rgb(92,164,169) ;
+    color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px 8px 8px 8px;
+    margin-left: 5px;
+}

@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block titulo%} Libreria Imagina {% endblock %}
+{%load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/CSS/home.css' %}" type="text/css">
+{% endblock %}
+{% block contenido %}
+
+<!-- Sliders -->
+<div id="carouselExampleControls" class="carousel-slide" data-ride = "carousel" data-interval = "3000">
+        
+    <div class="carousel-inner">  
+        <div class="carousel-item active">
+            <img  class="d-block w-100"  src="{% static 'core/IMG/job_book_honya.png' %}" alt="Primer Slide">
+                <div class="carousel-caption d-none d-sm-block"></div>
+        </div>
+
+        <div class="carousel-item ">
+            <img  class="d-block w-100"  src="{% static 'core/IMG/book_bug.png' %}" alt="Segundo Slide">
+                <div class="carousel-caption d-none d-sm-block"></div>
+        </div>
+
+        <div class="carousel-item ">
+            <img  class="d-block w-100"  src="{% static 'core/IMG/study_group.png' %}" alt="tercer Slide">
+                <div class="carousel-caption d-none d-sm-block"></div>
+        </div>
+
+    </div>
+</div>
+<!-- Fin Sliders -->
+<!-- bloque correo -->
+<div class="correo">
+    <div class="mensaje">
+        <p >
+            <h3>¡Que no se te pase ni una!</h3>
+            <h5>Deja tu correo y enterate de todo lo que pasa. Tips, noticias, promociones, re-stock de tus libros favoritos y más. </h5>
+        </p>
+    </div>
+
+    <div class="input-group mb-3" id="input-correo">
+        <input type="text" id="correo" name="correo" class="form-control" placeholder="hola@correo.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" id="btn-correo" type="submit">ENVIAR</button>
+        </div>
+    </div>
+
+</div>
+<!-- fin bloque -->
+
+{% endblock %}

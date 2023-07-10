@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block titulo%}Quines Somos | Libreria Imagina {% endblock %}
+{%load static%}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/CSS/quienessomos.css' %}" type="text/css">
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    
+    <!-- PRESENTACION -->
+    <div class="row" id="presentacion">
+        
+        <div  class="col-5 text-center " id="mensj-des">
+            <h2 class="pb-4" >¡Averigua más de nosotrxs!</h2>
+
+            <p>Librería Imagina cuenta con una gran trayectoria de importación y comercialización, reparación y servicio técnico de mantenimiento de libros.</p>
+            
+            <p>Poseemos una amplia experiencia, adquirida durante años de ejercicio profesional, lo que nos permite brindar un servicio de calidad, rápido y eficiente para cada uno de nuestros clientes</p>
+
+            <h5>Nuestra Misión</h5>
+            <p>Tenemos como misión el transformarnos una librería del más amplio catálogo de libros del territorio nacional</p>
+            <h5>Nuestra Visión</h5>
+            <p>Tenemos como visión la busqueda de ser una de las instituciones de referencia en la venta de libros a nivel sudamericano</p>
+        </div>
+
+        <div class="col-1"></div>
+
+        <div class="col-6" id="img-quien">
+            <img class="img" src="{% static 'core/IMG/book_bug.png' %}" width="500" height="500" alt="">
+        </div>
+        
+    </div>
+
+</div>
+{% endblock %}

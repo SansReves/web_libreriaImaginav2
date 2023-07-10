@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block titulo%} Servicios | Libreria Imagina {% endblock %}
+{%load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/CSS/servicios.css' %}" type="text/css">
+{% endblock %}
+{% block contenido %}
+
+<div>
+    <h1 class="titulo">Servicios</h1>
+</div>
+
+<div class="row" id="servicios">
+    {% load humanize %}
+    <div class="col-8">
+        <form action="{% url 'form_servicio' %}" method="post">
+            {% csrf_token%}
+            {% for s in servicios %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{s.nombre_serv}}</h5>
+                    <h6>{{s.dscrp_serv}}</h6>
+                    <p class="card-text">${{s.precio_serv|intcomma}}</p>
+                    <input type="hidden" name="id_serv" value="{{s.id_serv}}">
+                    <button class="btn btn-outline-secondary" type="submit">Contratar</button>
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+
+    <div class="col-4" id="imagen">
+        <img src="{% static 'core/IMG/figure_maintenance.png' %}" width="100% auto" height="80% auto" alt="mantencion-img">
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+*, html{
+    margin: 0;
+    padding: 0;
+}
+
+.titulo {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(137, 176, 174);
+    font-size: 30px;
+    font-weight: 100px;
+    color: white;
+}
+
+body{
+    background-color: rgb(251,248,244);
+}
+
+.bg-azulado{
+    background-color: rgb(35,91,110);
+}
+
+.bg-footer{
+    background-color: rgb(190,227,219);
+}

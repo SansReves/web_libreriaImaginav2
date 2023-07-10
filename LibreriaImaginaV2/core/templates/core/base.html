@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block titulo%} {% endblock %} </title>
+    {% load static %}
+    {% block css %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'core/CSS/bootstrap.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'core/CSS/base.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- BootStrapNavBar MENU NAVEGACION -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-azulado">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{%static 'core/IMG/book_smile.png'%}" width="50" height="45" alt="book-logo">
+            </a>
+            <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse"
+                data-target="#menuDesplegable">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuDesplegable">
+                <ul class="navbar-nav">
+                    <li class="nav-item active mr-4">
+                        <a class="nav-link" href="{%url 'home' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item active mr-4">
+                        <a class="nav-link" href="{%url 'quienessomos' %}">Quienes Somos</a>
+                    </li>
+                    <li class="nav-item active mr-4">
+                        <a class="nav-link" href="{%url 'catalogo' %}">Catálogo</a>
+                    </li>
+                    <li class="nav-item active mr-4">
+                        <a class="nav-link" href="{%url 'servicios' %}">Servicios</a>
+                    </li>
+                    <li class="nav-item active mr-4">
+                        <a class="nav-link" href="{%url 'seguimiento' %}">Seguimiento</a>
+                    </li>
+
+                    <li class="nav-item dropdown mr-4">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if request.COOKIES.cliente_nombre %}
+                            Mi Cuenta
+                            {% else %}
+                            Bienvenid@
+                            {% endif %}
+                            <img src="{% static 'core/IMG/usuario.png' %}" width="45" height="45" alt="">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% if request.COOKIES.cliente_nombre %}
+                            <a class="dropdown-item" href="#">Bienvenid@: {{ request.COOKIES.cliente_nombre }}</a>
+                            <a class="dropdown-item" href="#">Pedidos</a>
+                            <a class="dropdown-item" href="#">Cuenta</a>
+                            <a class="dropdown-item" href="{% url 'cerrarsesion' %}">Cerrar Sesión</a>
+                            {% else %}
+                            <a class="dropdown-item" href="{% url 'iniciosesion' %}">Iniciar Sesión</a>
+                            <a class="dropdown-item" href="{% url 'registrouser' %}">Registrarse</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                                   
+
+                </ul>
+                <a class="navbar-brand" href="#">
+                    <img src="{% static  'core/IMG/Cart_512.png' %}  " width="45" height="45" alt="">
+                </a>
+            </div>
+
+
+        </div>
+    </nav>
+    <!-- FIN NAVBAR -->
+
+    {% block contenido %}
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer class="page-footer mt-4 sticky-bottom bg-footer">
+        <div class="container p-4 sticky-bottom"></div>
+        <!-- Copyright -->
+        <div class="row text-center p-3bg-footer sticky-lg-bottom">
+            <h6 class="col-md-12">Información de Contacto</h6>
+            <div class="col-md-6">
+                <h6>Email</h6>
+                <p>contacto@libreriaimagina.com</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Horario Laboral</h6>
+                <p>LUN - VIE / 09:00 AM - 18:00 PM</p> 
+            </div>
+        </div>
+
+        <div class="text-center p-3bg-footer sticky-lg-bottom ">
+            © 2023 Copyright:
+            <a href="{% url 'home' %}">SansReves</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+
+
+    {% block JS %}
+    {% endblock %}
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'core/JS/jquery-3.3.1.slim.min.js' %} "></script>
+    <script src="{% static 'core/JS/popper.min.js' %}"></script>
+    <script src="{% static 'core/JS/bootstrap.min.js' %} "></script>
+
+</body>
+
+</html>

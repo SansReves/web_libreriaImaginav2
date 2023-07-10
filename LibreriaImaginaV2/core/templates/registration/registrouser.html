@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block titulo%}Registro de Usuario | Libreria Imagina {% endblock %}
+{%load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'core/CSS/registrouser.css' %}" type="text/css">
+{% endblock %}
+{% block contenido %}
+
+<div class="wrapper fadeInDown">
+    <div id="formContentR">
+
+
+      <div id="formContR">
+        <!-- Icono -->
+        <div class="mt-3 mb-3 text-center ">
+          <img src="{% static 'core/img/usuario.png' %}" height="90" width="90" />
+          <h2>Crear nueva cuenta</h2>
+        </div>
+
+        <!-- formulario login -->
+        <form method="POST">
+          {% csrf_token%}
+          {{ form.as_p }}
+
+          <div class="mt-3 px-5 py-1"> <input type="submit" class="fadeIn fourth px-5 py-1" value="Registrar"></div>
+        </form>
+
+        <!-- resetear contrseña -->
+      </div>
+      <div id="formFooterR">
+        <a class="" href="{% url 'home' %}">Volver al home</a> |
+        <a class="" href="{% url 'iniciosesion' %} ">Ingresar</a>
+      </div>
+
+
+    </div>
+  </div>
+{% endblock %}
