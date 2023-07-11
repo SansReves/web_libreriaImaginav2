@@ -10,40 +10,63 @@
     <h1 class="titulo">Solicitud de Servicios</h1>
 </div>
 
-<div class="row" id="servicios">
-    {% load humanize %}
-    <div class="col-2"></div>
-    <div class="col-8">
-        <form method="post">
-            {% csrf_token%}
-            <div class="card">
-                <div class="card-body">
-                    <div class="py-2 ">
-                        <label for="cboServicio">Servicio: *</label>
+<div class="wrapper fadeInDown">
+    <div id="formContentR">
+
+        <div id="formContR">
+            <!-- Icono -->
+            <div class="mt-3 mb-3 text-center ">
+                <img src="{% static 'core/img/usuario.png' %}" height="90" width="90" />
+                <h2>Crea una nueva cuenta</h2>
+            </div>
+
+            <!-- formulario -->
+            <form class="row" method="POST">
+                {% csrf_token%}
+                <div class="col-6">
+                    <h4>Información para Contratar Servicio</h4>
+                    <hr>
+                    <div>
+                        <label for="id_serv">Tipo de Servicio:</label>
                         <select id="cboServicio" name="cboServicio">
                             <option value="0">Seleccione</option>
-                            {% for s in Servicio %}
-                            <option value="{{ s.id_serv }}">{{ s.nombre_serv }}</option>
+                            {% for t in tipos_servicios %}
+                            <option value="{{ s.id_serv }}" {% if s.id_serv == id_serv %}selected{% endif %}>{{ t.nombre_serv }}</option>
+                            {% endfor %}
+                        </select>                        
+                    </div>
+                    <div>
+                        <label for="fecha_serv">Fecha para servicio:</label>
+                        <input type="datetime" id="fecha_serv" name="fecha_serv" required>
+                    </div>
+                    <div>
+                        <label for="id_tp_pago">Tipo de Pago:</label>
+                        <select id="id_tp_pago" name="id_tp_pago">
+                            {% for tipo_pago in tipos_pagos %}
+                            <option value="{{ tipo_pago.id_tp_pago }}">{{ tipo_pago.nombre_tp_pago }}</option>
                             {% endfor %}
                         </select>
                     </div>
-
-                    <div class=" py-2 ">
-                        <p>Fecha de Visita: <input type="date" id="fecha" name="fecha"></p>
-                    </div>
-                    <div class=" py-2 ">
-                        <p>Describe por qué necesitas este servicio:</p>
-                        <input type="text" id="detalle" name="detalle">
-                    </div>
-
-                    <div class=" py-2 ">
-                        <input class="btn btn-success" type="submit" value="Siguiente">
-                    </div>
                 </div>
-            </div>  
-        </form>
+
+
+                <div class="col-6">
+                    <h4>Información de Inicio de Sesión</h4>
+                    <hr>
+
+                </div>
+
+                <div class="col-12 mt-3 px-5 py-1"> <input type="submit" class="fadeIn fourth px-5 py-1" value="Pagar"></div>
+            </form>
+
+            <!-- home -->
+        </div>
+        <div id="formFooterR">
+            <a class="" href="{% url 'home' %}">Volver al home</a> |
+            <a class="" href="{% url 'servicios' %} ">Volver a Servicios</a>
+        </div>
+
     </div>
-    <div class="col-2"></div>
 </div>
 
 {% endblock %}
