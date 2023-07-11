@@ -92,7 +92,7 @@ def registrouser(request):
         cliente.save()
 
         # Redirigir a una página de registro exitoso
-        return render(request, 'registration/registro_exitoso.html')
+        return render(request, 'core/home.html')
 
     tipos_clientes = TipoCliente.objects.all()
     return render(request, 'registration/registrouser.html', {'tipos_clientes': tipos_clientes})

@@ -3,17 +3,17 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  
+  width: 100%;
   min-height: 100%;
-  padding: 20px;
+  padding: 50px;
 }
 
-/* REGISTRO */
 #formContentR {
-  border-radius: 8px;
-  background: rgba(184, 212, 214, 0.945);
+
+  border-radius: 8px 8px 8px 8px;
+  background: rgb(242, 233, 228);
   padding: 30px;
-  width: 80%; /* Cambia el valor para ajustar el ancho deseado */
+  width: 90%;
   max-width: 900px;
   position: relative;
   padding: 0px;
@@ -22,9 +22,8 @@
   text-align: center;
 }
 
-
 #formFooterR {
-  background-color: rgba(255, 202, 212, 0.774);
+  background-color: rgb(251, 206, 173);
   border-top: 1px solid #dce8f1;
   padding: 25px;
   text-align: center;
@@ -43,12 +42,10 @@
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button],
-input[type=submit],
-input[type=reset] {
-  background-color: teal;
+input[type=button],input[type=submit],input[type=reset],select,input[type=number],input[type=email],input[type=text] {
+  background-color: rgb(35, 91, 110);
   border: none;
-  color: rgb(238, 238, 238);
+  color: white;
 
   text-align: center;
   text-decoration: none;
@@ -60,17 +57,13 @@ input[type=reset] {
 
   transition: all 0.3s ease-in-out;
 }
-
-input[type=button]:hover,
-input[type=submit]:hover,
-input[type=reset]:hover {
-  background-color: rgb(192, 132, 151);
+select:hover,input[type=number]:hover,input[type=email]:hover,input[type=text]:hover,
+input[type=button]:hover,input[type=submit]:hover,input[type=reset]:hover {
+  background-color: rgb(190, 227, 219);
+  color: black;
 }
 
-input[type=text],
-input[type=email],
-input[type=number]
- {
+select,input[type=text],input[type=email],input[type=number] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -91,16 +84,12 @@ input[type=number]
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=number],
-input[type=email],
-input[type=text]:focus {
+select,input[type=number],input[type=email],input[type=text]:focus {
   background-color: rgb(241, 231, 231);
   border-bottom: 2px solid rgb(192, 132, 151);
 }
 
-input[type=number],
-input[type=email],
-input[type=text]:placeholder {
+select,input[type=number],input[type=email],input[type=text]:placeholder {
   color: #cccccc;
 }
 

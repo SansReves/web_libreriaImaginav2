@@ -11,19 +11,19 @@
 #formContent {
 
   border-radius: 8px 8px 8px 8px;
-  background: rgba(242, 233, 228);
+  background: rgb(242, 233, 228);
   padding: 30px;
   width: 90%;
   max-width: 450px;
   position: relative;
   padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 30px 60px 0 rgb(0, 0, 0, 0.3);
+  box-shadow: 0px 10px 10px rgb(0, 0, 0, 0.3);
   text-align: center;
 }
 
 #formFooter {
-  background-color: rgba(251, 206, 173);
+  background-color: rgb(251, 206, 173);
   border-top: 1px solid #dce8f1;
   padding: 25px;
   text-align: center;

@@ -3,7 +3,7 @@
 {% block titulo%}Registro de Usuario | Libreria Imagina {% endblock %}
 {%load static%}
 {% block css %}
-<link rel="stylesheet" href="{% static 'core/CSS/registrouser.css' %}" type="text/css">
+<link rel="stylesheet" href="{%static 'core/CSS/registrouser.css'%}" type="text/css">
 {% endblock %}
 {% block contenido %}
 {% load crispy_forms_tags %}
@@ -14,13 +14,13 @@
       <!-- Icono -->
       <div class="mt-3 mb-3 text-center ">
         <img src="{% static 'core/img/usuario.png' %}" height="90" width="90" />
-        <h2>Crear nueva cuenta</h2>
+        <h2>Crea una nueva cuenta</h2>
       </div>
 
-      <!-- formulario login -->
-      <form method="POST">
+      <!-- formulario registro cliente -->
+      <form class="row" method="POST">
         {% csrf_token%}
-        <div>
+        <div class="col-6">
           <h4>Información Personal</h4>
           <hr>
           <div>
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="col-6">
           <h4>Información de Inicio de Sesión</h4>
           <hr>
           <div>
@@ -70,7 +70,7 @@
           </div>
         </div>
 
-        <div class="mt-3 px-5 py-1"> <input type="submit" class="fadeIn fourth px-5 py-1" value="Registrar"></div>
+        <div class="col-12 mt-3 px-5 py-1"> <input type="submit" class="fadeIn fourth px-5 py-1" value="Registrar"></div>
       </form>
 
       <!-- resetear contrseña -->
