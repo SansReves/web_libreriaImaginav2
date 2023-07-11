@@ -16,7 +16,7 @@
     <div class="col-2">
         <div class="card">
             {% if l.imagen_libro %}
-            <img class="card-img-top" src="#" alt="Card image">
+            <img class="card-img-top" src="{{ l.get_imagen_url }}" alt="Card image">
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{l.nombre_libro}} </h5>

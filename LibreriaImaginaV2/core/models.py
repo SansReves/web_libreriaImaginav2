@@ -5,9 +5,13 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from django.conf import settings
 from django.db import models
-
-
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from io import BytesIO
+import cx_Oracle
+import uuid
 
 class Cliente(models.Model):
     rut_cli = models.CharField(primary_key=True, max_length=9)
@@ -25,7 +29,7 @@ class Cliente(models.Model):
 
 
 class Despacho(models.Model):
-    id_despc = models.IntegerField(primary_key=True)
+    id_despc = models.AutoField(primary_key=True)
     nombre_despc = models.CharField(max_length=30)
     precio_despc = models.IntegerField()
 
@@ -49,7 +53,7 @@ class Empleado(models.Model):
 
 
 class Estado(models.Model):
-    id_est = models.IntegerField(primary_key=True)
+    id_est = models.AutoField(primary_key=True)
     nombre_estado = models.CharField(max_length=40)
 
     class Meta:
@@ -57,7 +61,7 @@ class Estado(models.Model):
         db_table = 'estado'
 
 class CatgLibro(models.Model):
-    id_catg = models.IntegerField(primary_key=True)
+    id_catg = models.AutoField(primary_key=True)
     catg_libro = models.CharField(max_length=30)
 
     class Meta:
@@ -65,22 +69,31 @@ class CatgLibro(models.Model):
         db_table = 'catg_libro'
 
 class Libro(models.Model):
-    id_libro = models.IntegerField(primary_key=True)
+    id_libro = models.AutoField(primary_key=True)
     nombre_libro = models.CharField(max_length=40)
     autor_libro = models.CharField(max_length=40)
     sinopsis_libro = models.CharField(max_length=250, blank=True, null=True)
     precio_libro = models.IntegerField()
     stock_libro = models.IntegerField()
-    imagen = models.BinaryField(blank=True, null=True)
+    imagen = models.ImageField(upload_to="libros", blank=True, null=True)
     id_catg = models.ForeignKey(CatgLibro, models.DO_NOTHING, db_column='id_catg')
 
+    def get_imagen_url(self):
+        if self.imagen and isinstance(self.imagen, cx_Oracle.LOB):
+            raw_data = self.imagen.read()
+            file_name = f"imagen_{uuid.uuid4().hex}.jpg"  # Generar un nombre de archivo único
+            file = ContentFile(raw_data, name=file_name)
+            return default_storage.url(file.name) if file.name else None
+        else:
+            return None
+            
     class Meta:
         managed = False
         db_table = 'libro'
 
 
 class OrdenCompra(models.Model):
-    id_compra = models.IntegerField(primary_key=True)
+    id_compra = models.AutoField(primary_key=True)
     fecha_or_compra = models.DateField()
     total_final_or = models.IntegerField(blank=True, null=True)
     rut_emp = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='rut_emp')
@@ -134,7 +147,7 @@ class OrdenServicio(models.Model):
 
 
 class Servicio(models.Model):
-    id_serv = models.IntegerField(primary_key=True)
+    id_serv = models.AutoField(primary_key=True)
     nombre_serv = models.CharField(max_length=50)
     dscrp_serv = models.CharField(max_length=250, blank=True, null=True)
     precio_serv = models.IntegerField()
@@ -145,7 +158,7 @@ class Servicio(models.Model):
 
 
 class TipoCliente(models.Model):
-    id_tp_cli = models.IntegerField(primary_key=True)
+    id_tp_cli = models.AutoField(primary_key=True)
     nombre_tp_cli = models.CharField(max_length=20)
 
     class Meta:
@@ -154,7 +167,7 @@ class TipoCliente(models.Model):
 
 
 class TipoEmpleado(models.Model):
-    id_tp_emp = models.IntegerField(primary_key=True)
+    id_tp_emp = models.AutoField(primary_key=True)
     nombre_tp_emp = models.CharField(max_length=30)
 
     class Meta:
@@ -163,7 +176,7 @@ class TipoEmpleado(models.Model):
 
 
 class TipoPago(models.Model):
-    id_tp_pago = models.IntegerField(primary_key=True)
+    id_tp_pago = models.AutoField(primary_key=True)
     nombre_tp_pago = models.CharField(max_length=20)
 
     class Meta:

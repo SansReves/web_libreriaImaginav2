@@ -1,5 +1,7 @@
 Django == 3.2.3
 cx_Oracle
+djangorestframework
 pillow
 django-admin-interface
 requests
+django-crispy-forms

@@ -20,8 +20,8 @@ class OrdenLibroAdmin(admin.ModelAdmin):
     list_display = ["id_libro","id_compra","cant_libro","total_detalle_libro"]
 
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ["nombre_libro","autor_libro","sinopsis_libro","imagen","precio_libro","stock_libro","id_catg"]
-    list_editable = ["nombre_libro","autor_libro","sinopsis_libro","precio_libro","imagen","stock_libro"]
+    list_display = ["nombre_libro","autor_libro","sinopsis_libro","get_imagen_url","precio_libro","stock_libro","id_catg"]
+    list_editable = ["nombre_libro","autor_libro","sinopsis_libro","precio_libro","stock_libro"]
     search_fields = ["nombre_libro","autor_libro","id_catg"]
     list_filter = ["autor_libro","id_catg"]
     list_per_page = 10

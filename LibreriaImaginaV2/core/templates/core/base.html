@@ -54,8 +54,8 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             {% if request.COOKIES.cliente_nombre %}
                             <a class="dropdown-item" href="#">Bienvenid@: {{ request.COOKIES.cliente_nombre }}</a>
-                            <a class="dropdown-item" href="#">Pedidos</a>
                             <a class="dropdown-item" href="#">Cuenta</a>
+                            <a class="dropdown-item" href="#">Pedidos</a>
                             <a class="dropdown-item" href="{% url 'cerrarsesion' %}">Cerrar Sesión</a>
                             {% else %}
                             <a class="dropdown-item" href="{% url 'iniciosesion' %}">Iniciar Sesión</a>

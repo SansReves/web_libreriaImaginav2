@@ -6,34 +6,81 @@
 <link rel="stylesheet" href="{% static 'core/CSS/registrouser.css' %}" type="text/css">
 {% endblock %}
 {% block contenido %}
-
+{% load crispy_forms_tags %}
 <div class="wrapper fadeInDown">
-    <div id="formContentR">
+  <div id="formContentR">
 
+    <div id="formContR">
+      <!-- Icono -->
+      <div class="mt-3 mb-3 text-center ">
+        <img src="{% static 'core/img/usuario.png' %}" height="90" width="90" />
+        <h2>Crear nueva cuenta</h2>
+      </div>
 
-      <div id="formContR">
-        <!-- Icono -->
-        <div class="mt-3 mb-3 text-center ">
-          <img src="{% static 'core/img/usuario.png' %}" height="90" width="90" />
-          <h2>Crear nueva cuenta</h2>
+      <!-- formulario login -->
+      <form method="POST">
+        {% csrf_token%}
+        <div>
+          <h4>Información Personal</h4>
+          <hr>
+          <div>
+            <label for="nombre_cli">Nombre:</label>
+            <input type="text" id="nombre_cli" name="nombre_cli" required>
+          </div>
+          <div>
+            <label for="ap_paterno_cli">Apellido:</label>
+            <input type="text" id="ap_paterno_cli" name="ap_paterno_cli">
+          </div>
+          <div>
+            <label for="rut_cli">Rut:</label>
+            <input type="text" id="rut_cli" name="rut_cli" required>
+          </div>
+          <div>
+            <label for="correo_cli">Correo:</label>
+            <input type="email" id="correo_cli" name="correo_cli" required>
+          </div>
+          <div>
+            <label for="telefono_cli">Telefono:</label>
+            <input type="number" id="telefono_cli" name="telefono_cli" required>
+          </div>
         </div>
 
-        <!-- formulario login -->
-        <form method="POST">
-          {% csrf_token%}
-          {{ form.as_p }}
+        <div>
+          <h4>Información de Inicio de Sesión</h4>
+          <hr>
+          <div>
+            <label for="usuario_cli">Usuario:</label>
+            <input type="text" id="usuario_cli" name="usuario_cli" required>
+          </div>
+          <div>
+            <label for="contrasenia_cli">Contraseña:</label>
+            <input type="password" id="contrasenia_cli" name="contrasenia_cli" required>
+          </div>
+          <div>
+            <label for="confirm_contrasenia_cli">Confirmar Contraseña:</label>
+            <input type="password" id="confirm_contrasenia_cli" name="confirm_contrasenia_cli" required>
+          </div>
+          <div>
+            <label for="id_tp_cli">Tipo de Cliente:</label>
+            <select id="id_tp_cli" name="id_tp_cli" required>
+              {% for tipo_cliente in tipos_clientes %}
+              <option value="{{ tipo_cliente.id_tp_cli }}">{{ tipo_cliente.nombre_tp_cli }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
 
-          <div class="mt-3 px-5 py-1"> <input type="submit" class="fadeIn fourth px-5 py-1" value="Registrar"></div>
-        </form>
+        <div class="mt-3 px-5 py-1"> <input type="submit" class="fadeIn fourth px-5 py-1" value="Registrar"></div>
+      </form>
 
-        <!-- resetear contrseña -->
-      </div>
-      <div id="formFooterR">
-        <a class="" href="{% url 'home' %}">Volver al home</a> |
-        <a class="" href="{% url 'iniciosesion' %} ">Ingresar</a>
-      </div>
-
-
+      <!-- resetear contrseña -->
     </div>
+    <div id="formFooterR">
+      <a class="" href="{% url 'home' %}">Volver al home</a> |
+      <a class="" href="{% url 'iniciosesion' %} ">Ingresar</a>
+    </div>
+
+
   </div>
+</div>
 {% endblock %}
