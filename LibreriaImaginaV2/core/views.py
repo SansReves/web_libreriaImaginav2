@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import redirect, render
 from django.contrib import messages
+import re
 
 from .forms import CustomUserCreationForm
 from .models import Libro, Cliente,TipoCliente, Servicio, OrdenServicio
@@ -71,10 +72,22 @@ def registrouser(request):
         confirm_contrasenia_cli = request.POST.get('confirm_contrasenia_cli')
         id_tp_cli = 2
 
+        # Eliminar guiones y puntos del rut_cli
+        rut_cli = re.sub(r'[-\.]', '', rut_cli)
+
         # Verificar si las contraseñas coinciden
         if contrasenia_cli != confirm_contrasenia_cli:
             return render(request, 'registration/registrouser.html', {'error': 'Las contraseñas no coinciden'})
+        # Validar que el rut_cli tenga un largo admitido de 9 u 8 caracteres
+        if len(rut_cli) not in [8, 9]:
+            return render(request, 'registration/registrouser.html', {'error': 'El RUT debe tener 8 o 9 caracteres.'})
+        
+        if len(telefono_cli) not in [8, 9]:
+            return render(request, 'registration/registrouser.html', {'error': 'Telefono incorrecto'})
 
+        # Validar que el último carácter sea "K" o un dígito
+        if not rut_cli[-1].isdigit() and rut_cli[-1] != 'K':
+            return render(request, 'registration/registrouser.html', {'error': 'El último carácter debe ser "K" o un dígito.'})
         # Obtener la instancia de TipoCliente correspondiente al id_tp_cli
         tipo_cliente = TipoCliente.objects.get(id_tp_cli=id_tp_cli)
 
@@ -100,7 +113,6 @@ def registrouser(request):
 def form_servicio(request):
     #Combo box
     list_serv = Servicio.objects.all
-    data = {"Servicio" : list_serv}
 
     #Solicitud de Servicio
     if request.method == 'POST':
@@ -112,7 +124,7 @@ def form_servicio(request):
         orp.total_detalle_serv = request.POST.get("")
         orp.detalle_serv = request.POST.get("detalle")
 
-        serv = Servicio()
+        serv = Servicio.objects.all()
         serv.id_serv = request.POST.get("cboServicio")
         orp.id_serv = serv
 

@@ -9,7 +9,9 @@
 
 <div>
     <h1 class="titulo">Servicios</h1>
-    <h6 class="subtitulo">Librería Imagina tiene diferentes servicios para ofrecer, los cuáles tienen un precio base para la evaluación que nuestros técnicos realizaran una vez hagan la cita</h6>
+</div>
+<div>
+    <p class="subtitulo py-2">Librería Imagina tiene diferentes servicios para ofrecer, los cuáles tienen un precio base para la evaluación que nuestros especialistas realizaran una vez hagan la cita</p>
 </div>
 
 <div class="row" id="servicios">
@@ -24,7 +26,12 @@
                     <h6>{{s.dscrp_serv}}</h6>
                     <p class="card-text">${{s.precio_serv|intcomma}}</p>
                     <input type="hidden" name="id_serv" value="{{s.id_serv}}">
+                    {% if request.COOKIES.cliente_nombre %}
                     <button class="btn btn-outline-secondary" type="submit">Contratar</button>
+                    {% else %}
+                    <button class="btn btn-outline-secondary" type="submit" formaction="{% url 'iniciosesion' %}">Inicia sesion para Contratar</button>
+                    {% endif %}
+
                 </div>
             </div>
             {% endfor %}

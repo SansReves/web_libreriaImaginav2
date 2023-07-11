@@ -5,6 +5,9 @@
 {% block css %}
 <link rel="stylesheet" href="{%static 'core/CSS/registrouser.css'%}" type="text/css">
 {% endblock %}
+{% block JS %}
+<script src="{% static 'core/JS/VALIDACIONES.js' %}"></script>
+{% endblock %}
 {% block contenido %}
 {% load crispy_forms_tags %}
 <div class="wrapper fadeInDown">
@@ -32,9 +35,13 @@
             <input type="text" id="ap_paterno_cli" name="ap_paterno_cli">
           </div>
           <div>
-            <label for="rut_cli">Rut:</label>
-            <input type="text" id="rut_cli" name="rut_cli" required>
-          </div>
+            <label for="rut_cli">Rut sin puntos:</label>
+            <input type="text" id="rut_cli" name="rut_cli" maxlength="9" required oninput="formatRut(this)">
+            {% if error and 'rut_cli' in error %}
+            <br>
+            <small class="error-message">{{ error.rut_cli }}</small>
+            {% endif %}
+          </div>         
           <div>
             <label for="correo_cli">Correo:</label>
             <input type="email" id="correo_cli" name="correo_cli" required>
@@ -62,7 +69,7 @@
           </div>
           <div>
             <label for="id_tp_cli">Tipo de Cliente:</label>
-            <select id="id_tp_cli" name="id_tp_cli" required>
+            <select id="id_tp_cli" name="id_tp_cli" disabled>
               {% for tipo_cliente in tipos_clientes %}
               <option value="{{ tipo_cliente.id_tp_cli }}">{{ tipo_cliente.nombre_tp_cli }}</option>
               {% endfor %}

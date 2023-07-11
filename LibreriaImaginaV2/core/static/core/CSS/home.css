@@ -6,13 +6,14 @@
 
 }
 .carousel-inner{
-    width: 400px auto;
-    height: 500px auto;
+    width: 400px fit-content;
+    height: 400px ;
 }
 
 .carousel-inner  img{
+    align-content: space-around;
     width: 200px;
-    height: 500px;
+    height: 500px fit-content;
     
 }
 

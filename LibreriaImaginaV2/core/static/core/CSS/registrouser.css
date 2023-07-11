@@ -42,7 +42,8 @@
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button],input[type=submit],input[type=reset],select,input[type=number],input[type=email],input[type=text] {
+input[type=button],input[type=submit],input[type=reset],
+select,input[type=number],input[type=email],input[type=text],input[type=password] {
   background-color: rgb(35, 91, 110);
   border: none;
   color: white;
@@ -58,12 +59,12 @@ input[type=button],input[type=submit],input[type=reset],select,input[type=number
   transition: all 0.3s ease-in-out;
 }
 select:hover,input[type=number]:hover,input[type=email]:hover,input[type=text]:hover,
-input[type=button]:hover,input[type=submit]:hover,input[type=reset]:hover {
+input[type=button]:hover,input[type=submit]:hover,input[type=reset]:hover,input[type=password] {
   background-color: rgb(190, 227, 219);
   color: black;
 }
 
-select,input[type=text],input[type=email],input[type=number] {
+select,input[type=text],input[type=email],input[type=number],input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -84,39 +85,8 @@ select,input[type=text],input[type=email],input[type=number] {
   border-radius: 5px 5px 5px 5px;
 }
 
-select,input[type=number],input[type=email],input[type=text]:focus {
-  background-color: rgb(241, 231, 231);
-  border-bottom: 2px solid rgb(192, 132, 151);
-}
-
-select,input[type=number],input[type=email],input[type=text]:placeholder {
+select,input[type=number],input[type=email],input[type=password],input[type=text]:placeholder {
   color: #cccccc;
-}
-
-input[type=password] {
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px;
-  width: 87%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
-
-input[type=password]:focus {
-  background-color: #fff;
-  border-bottom: 2px solid rgb(192, 132, 151);
 }
 
 input[type=password]:placeholder {

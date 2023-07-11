@@ -10,6 +10,8 @@
     {% endblock %}
     <link rel="stylesheet" href="{% static 'core/CSS/bootstrap.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'core/CSS/base.css' %}" type="text/css">
+    {% block JS %}
+    {% endblock %}
 </head>
 
 <body>
@@ -102,10 +104,6 @@
         <!-- Copyright -->
 
     </footer>
-
-
-    {% block JS %}
-    {% endblock %}
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{% static 'core/JS/jquery-3.3.1.slim.min.js' %} "></script>
