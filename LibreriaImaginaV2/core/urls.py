@@ -11,6 +11,7 @@ urlpatterns = [
     path('registrouser/', registrouser, name="registrouser"),
     path('cerrarsesion/', cerrarsesion, name="cerrarsesion"),
     path('form_servicio/', form_servicio, name="form_servicio"),
+    path('contratar_serv/', contratar_serv, name="contratar_serv"),
     
     
     path('', home, name="home"),

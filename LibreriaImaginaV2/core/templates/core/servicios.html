@@ -17,7 +17,7 @@
 <div class="row" id="servicios">
     {% load humanize %}
     <div class="col-8">
-        <form action="{% url 'form_servicio' %}" method="post">
+        <form method="post" action="/form_servicio/?id_serv={{ servicio.id_serv }}">
             {% csrf_token%}
             {% for s in servicios %}
             <div class="card">
@@ -26,7 +26,7 @@
                     <h6>{{s.dscrp_serv}}</h6>
                     <p class="card-text">${{s.precio_serv|intcomma}}</p>     
                     {% if request.COOKIES.cliente_nombre %}
-                    <button class="btn btn-outline-secondary" type="submit" formaction="{% url 'form_servicio' %}?id_serv={{ s.id_serv }}">Contratar</button>
+                    <button class="btn btn-outline-secondary" type="submit" formaction="{% url 'form_servicio' %}">Contratar</button>
                     <input type="hidden" name="id_serv" value="{{s.id_serv}}">
                     {% else %}
                     <button class="btn btn-outline-secondary" type="submit" formaction="{% url 'iniciosesion' %}">Inicia sesion para Contratar</button>

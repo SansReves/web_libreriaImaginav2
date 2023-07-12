@@ -118,67 +118,54 @@ def registrouser(request):
     return render(request, 'registration/registrouser.html', {'tipos_clientes': tipos_clientes})
 
 def form_servicio(request):
+    tipos_pagos = TipoPago.objects.all()
+    tipos_servicios = Servicio.objects.all()
+
     if request.method == 'POST':
-        id_serv = request.POST.get("id_serv")
-        request.session['id_serv'] = id_serv
         cliente_rut = request.COOKIES.get('cliente_rut')
-        fecha_actual = date.today()
-        # Obtener los datos de la solicitud POST
+        fecha_actual = datetime.now().date()
         fecha_or_compra = date.today()
         total_final_or = request.POST.get('total_final_or')
         rut_emp = '12345678K' #se usa para las compras hechas por la pagina web
         id_est = 1 #estado en proceso
         id_tp_pago = 2
         rut_cli = cliente_rut
-        
-        
-        tipo_pago = TipoPago.objects.get(id_tp_pago=id_tp_pago)
-        # Establecer la conexión a la base de datos Oracle
+
         conn = cx_Oracle.connect('bdLibreriav2/bdLibreriav2@127.0.0.1:1521/xe')
         
         try:
             # Crear un cursor
             cursor = conn.cursor()
-            
-            # Llamar al procedimiento almacenado 'save_or_compra' y obtener el ID de compra generado
             id_compra = cursor.var(cx_Oracle.NUMBER)
             cursor.callproc(
                 'save_or_compra',
                 [fecha_or_compra, total_final_or, rut_emp, id_est, id_tp_pago, rut_cli, id_compra]
             )
 
-            # Obtener el valor del ID de compra generado
             id_compra_generado = id_compra.getvalue()
-            tipo_servicio = Servicio.objects.get(id_serv=id_serv)
-            
-
-            # Obtener los datos de la solicitud POST para orden_servicio
-            total_detalle_serv = request.POST.get('total_detalle_serv')
-            cant_serv = request.POST.get('cant_serv')
-
+            precio_serv = 3000
+            cant_serv = 1
+            total_detalle_serv = precio_serv * cant_serv
             fecha_serv = request.POST.get('fecha_serv')
-            fecha_serv = datetime.strptime(fecha_serv, '%Y-%m-%d').date()  # Convertir la fecha a objeto date
-            if fecha_serv < fecha_actual:
-                return HttpResponse('La fecha de servicio no puede ser anterior a la fecha actual.')
-            
-            detalle_serv = request.POST.get('detalle_serv')
-            confirm_serv = request.POST.get('confirm_serv')
-            id_serv = request.POST.get('id_serv')
+            if fecha_serv:
+                fecha_serv = datetime.strptime(fecha_serv, '%Y-%m-%d').date()  # Convertir la fecha a objeto date
 
-            # Llamar al procedimiento almacenado 'save_or_servicio' para insertar en la tabla 'orden_servicio'
+                if fecha_serv < fecha_actual:
+                    return HttpResponse('La fecha de servicio no puede ser anterior a la fecha actual.')
+                else:
+                    return HttpResponse('La fecha de servicio es requerida.')
+                
+            detalle_serv = request.POST.get('detalle_serv')
+            confirm_serv = None
+            id_serv = 1
+
             cursor.callproc(
                 'save_or_servicio',
-                [total_detalle_serv, cant_serv, fecha_serv, detalle_serv, confirm_serv, tipo_servicio, id_compra_generado]
+                [total_detalle_serv, cant_serv, fecha_serv, detalle_serv, confirm_serv, id_serv, id_compra_generado]
             )
-
-            # Confirmar la transacción
             conn.commit()
-            # Cerrar el cursor
             cursor.close()
-            # Cerrar la conexión
             conn.close()
-
-            # Retorna una respuesta exitosa
             return HttpResponse('La orden de compra y la orden de servicio se han guardado exitosamente.')
 
         except cx_Oracle.Error as error:
@@ -186,7 +173,63 @@ def form_servicio(request):
             print('Error de Oracle:', error)
             # Opcionalmente, puedes agregar un mensaje de error personalizado en la respuesta HTTP
             return HttpResponse('Ocurrió un error al guardar la orden de compra y la orden de servicio.')
-        
-    tipos_pagos = TipoPago.objects.all()
+    return render(request, 'formularios/contratar_serv.html', {'tipos_servicios': tipos_servicios, 'tipos_pagos': tipos_pagos})
+
+def contratar_serv(request):
     tipos_servicios = Servicio.objects.all()
-    return render(request, 'formularios/form_servicio.html', {'tipos_servicios': tipos_servicios,'tipos_pagos': tipos_pagos, 'id_serv': id_serv})
+    tipos_pagos = TipoPago.objects.all()
+    if request.method == 'POST':
+        
+        ##ORDEN COMPRA
+        cliente_rut = request.COOKIES.get('cliente_rut')
+        id_tp_pago = request.POST.get("cboPago")
+        fecha_or_compra = date.today()
+        total_final_or = 5000
+        rut_emp = '12345678K'
+        id_est = 1 #estado en proceso
+        rut_cli = cliente_rut
+
+        tipo_pago = TipoPago.objects.get(id_tp_pago=id_tp_pago)
+        tipo_pago_id = tipo_pago.id_tp_pago
+
+        tipo_servicio = Servicio.objects.get(id_serv=id_serv)
+        tipo_servicio_id = tipo_servicio.id_serv
+
+        # Establecer la conexión a la base de datos Oracle
+        conn = cx_Oracle.connect('bdLibreriav2/bdLibreriav2@127.0.0.1:1521/xe')
+        try:
+            cursor = conn.cursor()
+            id_compra = cursor.var(cx_Oracle.NUMBER)
+            cursor.callproc(
+                'save_or_compra',
+                [fecha_or_compra, total_final_or, rut_emp, id_est, tipo_pago_id , rut_cli, id_compra]
+            )
+            id_compra_generado = id_compra.getvalue()
+            
+            cant_serv = 1
+            total_detalle_serv = precio_serv * cant_serv
+            fecha_serv = request.POST.get('fecha_serv')
+            detalle_serv = request.POST.get('detalle_serv')
+            confirm_serv = None
+            id_serv = request.POST.get("cboServicio")
+            precio_serv = tipo_servicio.precio_serv
+
+
+            cursor.callproc(
+                'save_or_servicio',
+                [total_detalle_serv, cant_serv, fecha_serv, detalle_serv, confirm_serv, tipo_servicio_id, id_compra_generado]
+            )
+            conn.commit()
+            cursor.close()
+            conn.close()
+            return render(request, 'core/home.html')
+        except cx_Oracle.Error as error:
+            # Manejar cualquier error de Oracle
+            print('Error de Oracle:', error)
+            # Opcionalmente, puedes agregar un mensaje de error personalizado en la respuesta HTTP
+            return HttpResponse('Ocurrió un error al guardar la orden de compra y la orden de servicio.')
+    
+    return render(request, 'formularios/contratar_serv.html', {'tipos_servicios': tipos_servicios, 'tipos_pagos': tipos_pagos})
+
+
+

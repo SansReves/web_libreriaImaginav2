@@ -30,23 +30,31 @@
                         <label for="cboServicio">Tipo de Servicio:</label>
                         <select id="cboServicio" name="cboServicio">
                             <option value="0">Seleccione</option>
-                            {% for t in tipos_servicios %}
-                            <option value="{{ s.id_serv }}" {% if s.id_serv == id_serv %}selected{% endif %}>{{ t.nombre_serv }}</option>
+                            {% for tipo_servicio in tipos_servicios %}
+                            <option value="{{tipo_servicio.id_serv}}" >{{ tipo_servicio.nombre_serv }}</option>
                             {% endfor %}
                         </select>                        
                     </div>
                     <div>
-                        <label for="fecha_serv">Fecha para servicio:</label>
-                        <input type="datetime" id="fecha_serv" name="fecha_serv" required>
-                    </div>
-                    <div>
-                        <label for="id_tp_pago">Tipo de Pago:</label>
-                        <select id="id_tp_pago" name="id_tp_pago">
+                        <label for="cboPago">Tipo de Pago:</label>
+                        <select id="cboPago" name="cboPago">
+                            <option value="0">Seleccione</option>
                             {% for tipo_pago in tipos_pagos %}
                             <option value="{{ tipo_pago.id_tp_pago }}">{{ tipo_pago.nombre_tp_pago }}</option>
                             {% endfor %}
                         </select>
                     </div>
+                    <div>
+                        <label for="totalFinal">Total Final:</label>
+                        <input type="text" id="totalFinal" name="totalFinal" value="{{ total_final_or }}" readonly>
+                    </div>
+                </div>
+
+
+                <div class="col-6">
+                    <h4>Información de Inicio de Sesión</h4>
+                    <hr>
+
                 </div>
 
                 <div class="col-12 mt-3 px-5 py-1"> <input type="submit" class="fadeIn fourth px-5 py-1" value="Pagar"></div>
